@@ -77,6 +77,7 @@ public class PalindromeCheckerApp {
         checkCaseInsensitivePalindrome(); // UC10
         checkUsingOOPService(); // UC11
         checkUsingStrategyPattern(); // UC12
+        comparePerformance(); // UC13
     }
 
     private static void displayWelcomeMessage() {
@@ -204,5 +205,36 @@ public class PalindromeCheckerApp {
         context.setStrategy(new DequeStrategy());
         boolean dequeResult=context.execute(text);
         System.out.println(text + (dequeResult?" is":" is NOT") + " a Palindrome (Strategy-Deque)");
+    }
+    // ===== UC13: Performance Comparison =====
+    private static void comparePerformance() {
+        String test = "Able was I ere I saw Elba".replaceAll("\\s+", "").toLowerCase();
+
+        // loop method timing
+        long startLoop = System.nanoTime();
+        isPalindromeRecursive(test, 0, test.length() - 1);
+        long endLoop = System.nanoTime();
+
+        // stack method timing
+        long startStack = System.nanoTime();
+        Stack<Character> stack = new Stack<>();
+        for (char c : test.toCharArray()) stack.push(c);
+        while (!stack.isEmpty()) stack.pop();
+        long endStack = System.nanoTime();
+
+        // deque method timing
+        long startDeque = System.nanoTime();
+        Deque<Character> dq = new ArrayDeque<>();
+        for (char c : test.toCharArray()) dq.addLast(c);
+        while (dq.size() > 1) {
+            dq.removeFirst();
+            dq.removeLast();
+        }
+        long endDeque = System.nanoTime();
+
+        System.out.println("Performance Comparison (nanoseconds):");
+        System.out.println("Recursion Method: " + (endLoop - startLoop));
+        System.out.println("Stack Method: " + (endStack - startStack));
+        System.out.println("Deque Method: " + (endDeque - startDeque));
     }
 }
