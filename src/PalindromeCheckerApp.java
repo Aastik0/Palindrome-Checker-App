@@ -19,6 +19,7 @@ public class PalindromeCheckerApp {
         checkPalindromeUsingDeque(); // UC7
         checkPalindromeUsingLinkedList(); // UC8
         checkPalindromeUsingRecursion(); // UC9
+        checkCaseInsensitivePalindrome(); // UC10
     }
 
     private static void displayWelcomeMessage() {
@@ -232,16 +233,35 @@ public class PalindromeCheckerApp {
     }
 
     private static boolean isPalindromeRecursive(String str, int left, int right) {
-        // base condition
-        if (left >= right) {
-            return true;
-        }
-
-        if (str.charAt(left) != str.charAt(right)) {
-            return false;
-        }
-
-        // recursive call
+        if (left >= right) return true;
+        if (str.charAt(left) != str.charAt(right)) return false;
         return isPalindromeRecursive(str, left + 1, right - 1);
+    }
+
+    // ===== UC10: Case-insensitive & space ignored =====
+    private static void checkCaseInsensitivePalindrome() {
+        String input = "A man a plan a canal Panama";
+
+        // normalize: remove spaces & make lowercase
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        int left = 0;
+        int right = normalized.length() - 1;
+        boolean isPalindrome = true;
+
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right)) {
+                isPalindrome = false;
+                break;
+            }
+            left++;
+            right--;
+        }
+
+        if (isPalindrome) {
+            System.out.println(input + " is a Palindrome (Case-Insensitive Method)");
+        } else {
+            System.out.println(input + " is NOT a Palindrome (Case-Insensitive Method)");
+        }
     }
 }
