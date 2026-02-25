@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class PalindromeCheckerApp {
 
     private static final String APP_NAME = "Palindrome Checker App";
@@ -8,6 +10,7 @@ public class PalindromeCheckerApp {
         checkHardcodedPalindrome(); // UC2
         checkPalindromeUsingLoop(); // UC3
         checkPalindromeUsingCharArray(); // UC4
+        checkPalindromeUsingStack(); // UC5
     }
 
     private static void displayWelcomeMessage() {
@@ -34,12 +37,10 @@ public class PalindromeCheckerApp {
         String original = "racecar";
         String reversed = "";
 
-        // reverse using for loop
         for (int i = original.length() - 1; i >= 0; i--) {
             reversed = reversed + original.charAt(i);
         }
 
-        // compare using equals()
         if (original.equals(reversed)) {
             System.out.println(original + " is a Palindrome (Loop Method)");
         } else {
@@ -56,7 +57,6 @@ public class PalindromeCheckerApp {
         int right = chars.length - 1;
         boolean isPalindrome = true;
 
-        // two-pointer comparison
         while (left < right) {
             if (chars[left] != chars[right]) {
                 isPalindrome = false;
@@ -70,6 +70,29 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is a Palindrome (Char Array Method)");
         } else {
             System.out.println(text + " is NOT a Palindrome (Char Array Method)");
+        }
+    }
+
+    // UC5 Method: Stack based palindrome
+    private static void checkPalindromeUsingStack() {
+        String text = "refer";
+        Stack<Character> stack = new Stack<>();
+
+        // push all characters
+        for (int i = 0; i < text.length(); i++) {
+            stack.push(text.charAt(i));
+        }
+
+        // pop to build reversed string
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed = reversed + stack.pop();
+        }
+
+        if (text.equals(reversed)) {
+            System.out.println(text + " is a Palindrome (Stack Method)");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Stack Method)");
         }
     }
 }
