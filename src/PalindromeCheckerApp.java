@@ -1,4 +1,6 @@
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
 
@@ -11,6 +13,7 @@ public class PalindromeCheckerApp {
         checkPalindromeUsingLoop(); // UC3
         checkPalindromeUsingCharArray(); // UC4
         checkPalindromeUsingStack(); // UC5
+        checkPalindromeUsingQueueAndStack(); // UC6
     }
 
     private static void displayWelcomeMessage() {
@@ -93,6 +96,39 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is a Palindrome (Stack Method)");
         } else {
             System.out.println(text + " is NOT a Palindrome (Stack Method)");
+        }
+    }
+
+    // UC6 Method: Queue + Stack comparison
+    private static void checkPalindromeUsingQueueAndStack() {
+        String text = "noon";
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
+
+        // enqueue and push
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            queue.offer(ch); // enqueue
+            stack.push(ch);  // push
+        }
+
+        boolean isPalindrome = true;
+
+        // compare dequeue vs pop
+        while (!queue.isEmpty()) {
+            char fromQueue = queue.poll();
+            char fromStack = stack.pop();
+
+            if (fromQueue != fromStack) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println(text + " is a Palindrome (Queue + Stack Method)");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Queue + Stack Method)");
         }
     }
 }
