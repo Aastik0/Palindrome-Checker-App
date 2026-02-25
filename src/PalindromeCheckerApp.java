@@ -5,6 +5,7 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
         displayWelcomeMessage();
+        checkHardcodedPalindrome(); // UC2
     }
 
     private static void displayWelcomeMessage() {
@@ -12,5 +13,17 @@ public class PalindromeCheckerApp {
         System.out.println(" Welcome to " + APP_NAME);
         System.out.println(" Version: " + VERSION);
         System.out.println("=================================");
+    }
+
+    // UC2 Method
+    private static void checkHardcodedPalindrome() {
+        String text = "madam"; // hardcoded string
+        String reversed = new StringBuilder(text).reverse().toString();
+
+        if (text.equals(reversed)) {
+            System.out.println(text + " is a Palindrome");
+        } else {
+            System.out.println(text + " is NOT a Palindrome");
+        }
     }
 }
