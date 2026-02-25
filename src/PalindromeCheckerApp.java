@@ -18,6 +18,7 @@ public class PalindromeCheckerApp {
         checkPalindromeUsingQueueAndStack(); // UC6
         checkPalindromeUsingDeque(); // UC7
         checkPalindromeUsingLinkedList(); // UC8
+        checkPalindromeUsingRecursion(); // UC9
     }
 
     private static void displayWelcomeMessage() {
@@ -161,22 +162,18 @@ public class PalindromeCheckerApp {
     }
 
     // ===== UC8: Linked List Based Palindrome =====
-
-    // Node class for singly linked list
     static class Node {
         char data;
         Node next;
 
         Node(char data) {
             this.data = data;
-            this.next = null;
         }
     }
 
     private static void checkPalindromeUsingLinkedList() {
         String text = "civic";
 
-        // convert string to linked list
         Node head = null, tail = null;
         for (char c : text.toCharArray()) {
             Node newNode = new Node(c);
@@ -188,14 +185,12 @@ public class PalindromeCheckerApp {
             }
         }
 
-        // find middle using fast & slow pointers
         Node slow = head, fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        // reverse second half
         Node prev = null, curr = slow;
         while (curr != null) {
             Node nextTemp = curr.next;
@@ -204,7 +199,6 @@ public class PalindromeCheckerApp {
             curr = nextTemp;
         }
 
-        // compare halves
         Node firstHalf = head;
         Node secondHalf = prev;
         boolean isPalindrome = true;
@@ -223,5 +217,31 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println(text + " is NOT a Palindrome (Linked List Method)");
         }
+    }
+
+    // ===== UC9: Recursive Palindrome =====
+    private static void checkPalindromeUsingRecursion() {
+        String text = "madam";
+        boolean result = isPalindromeRecursive(text, 0, text.length() - 1);
+
+        if (result) {
+            System.out.println(text + " is a Palindrome (Recursion Method)");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Recursion Method)");
+        }
+    }
+
+    private static boolean isPalindromeRecursive(String str, int left, int right) {
+        // base condition
+        if (left >= right) {
+            return true;
+        }
+
+        if (str.charAt(left) != str.charAt(right)) {
+            return false;
+        }
+
+        // recursive call
+        return isPalindromeRecursive(str, left + 1, right - 1);
     }
 }
