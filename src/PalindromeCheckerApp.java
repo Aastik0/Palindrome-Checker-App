@@ -6,6 +6,7 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
         displayWelcomeMessage();
         checkHardcodedPalindrome(); // UC2
+        checkPalindromeUsingLoop(); // UC3
     }
 
     private static void displayWelcomeMessage() {
@@ -17,13 +18,31 @@ public class PalindromeCheckerApp {
 
     // UC2 Method
     private static void checkHardcodedPalindrome() {
-        String text = "madam"; // hardcoded string
+        String text = "madam";
         String reversed = new StringBuilder(text).reverse().toString();
 
         if (text.equals(reversed)) {
             System.out.println(text + " is a Palindrome");
         } else {
             System.out.println(text + " is NOT a Palindrome");
+        }
+    }
+
+    // UC3 Method: Reverse using loop
+    private static void checkPalindromeUsingLoop() {
+        String original = "racecar";
+        String reversed = "";
+
+        // reverse using for loop
+        for (int i = original.length() - 1; i >= 0; i--) {
+            reversed = reversed + original.charAt(i);
+        }
+
+        // compare using equals()
+        if (original.equals(reversed)) {
+            System.out.println(original + " is a Palindrome (Loop Method)");
+        } else {
+            System.out.println(original + " is NOT a Palindrome (Loop Method)");
         }
     }
 }
