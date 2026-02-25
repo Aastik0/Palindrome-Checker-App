@@ -7,6 +7,7 @@ public class PalindromeCheckerApp {
         displayWelcomeMessage();
         checkHardcodedPalindrome(); // UC2
         checkPalindromeUsingLoop(); // UC3
+        checkPalindromeUsingCharArray(); // UC4
     }
 
     private static void displayWelcomeMessage() {
@@ -43,6 +44,32 @@ public class PalindromeCheckerApp {
             System.out.println(original + " is a Palindrome (Loop Method)");
         } else {
             System.out.println(original + " is NOT a Palindrome (Loop Method)");
+        }
+    }
+
+    // UC4 Method: Character array + two pointer
+    private static void checkPalindromeUsingCharArray() {
+        String text = "level";
+        char[] chars = text.toCharArray();
+
+        int left = 0;
+        int right = chars.length - 1;
+        boolean isPalindrome = true;
+
+        // two-pointer comparison
+        while (left < right) {
+            if (chars[left] != chars[right]) {
+                isPalindrome = false;
+                break;
+            }
+            left++;
+            right--;
+        }
+
+        if (isPalindrome) {
+            System.out.println(text + " is a Palindrome (Char Array Method)");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Char Array Method)");
         }
     }
 }
