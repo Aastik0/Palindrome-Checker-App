@@ -1,6 +1,8 @@
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
 
@@ -14,6 +16,7 @@ public class PalindromeCheckerApp {
         checkPalindromeUsingCharArray(); // UC4
         checkPalindromeUsingStack(); // UC5
         checkPalindromeUsingQueueAndStack(); // UC6
+        checkPalindromeUsingDeque(); // UC7
     }
 
     private static void displayWelcomeMessage() {
@@ -81,12 +84,10 @@ public class PalindromeCheckerApp {
         String text = "refer";
         Stack<Character> stack = new Stack<>();
 
-        // push all characters
         for (int i = 0; i < text.length(); i++) {
             stack.push(text.charAt(i));
         }
 
-        // pop to build reversed string
         String reversed = "";
         while (!stack.isEmpty()) {
             reversed = reversed + stack.pop();
@@ -105,16 +106,14 @@ public class PalindromeCheckerApp {
         Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
-        // enqueue and push
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
-            queue.offer(ch); // enqueue
-            stack.push(ch);  // push
+            queue.offer(ch);
+            stack.push(ch);
         }
 
         boolean isPalindrome = true;
 
-        // compare dequeue vs pop
         while (!queue.isEmpty()) {
             char fromQueue = queue.poll();
             char fromStack = stack.pop();
@@ -129,6 +128,36 @@ public class PalindromeCheckerApp {
             System.out.println(text + " is a Palindrome (Queue + Stack Method)");
         } else {
             System.out.println(text + " is NOT a Palindrome (Queue + Stack Method)");
+        }
+    }
+
+    // UC7 Method: Deque optimized palindrome
+    private static void checkPalindromeUsingDeque() {
+        String text = "radar";
+        Deque<Character> deque = new ArrayDeque<>();
+
+        // insert characters
+        for (int i = 0; i < text.length(); i++) {
+            deque.addLast(text.charAt(i));
+        }
+
+        boolean isPalindrome = true;
+
+        // compare front and rear
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println(text + " is a Palindrome (Deque Method)");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (Deque Method)");
         }
     }
 }
