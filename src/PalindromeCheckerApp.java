@@ -4,6 +4,27 @@ import java.util.LinkedList;
 import java.util.Deque;
 import java.util.ArrayDeque;
 
+// ===== UC11: OOP Service Class =====
+class PalindromeChecker {
+
+    // Encapsulated palindrome logic
+    public boolean checkPalindrome(String input) {
+        if (input == null) return false;
+
+        int left = 0;
+        int right = input.length() - 1;
+
+        while (left < right) {
+            if (input.charAt(left) != input.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+
 public class PalindromeCheckerApp {
 
     private static final String APP_NAME = "Palindrome Checker App";
@@ -20,6 +41,7 @@ public class PalindromeCheckerApp {
         checkPalindromeUsingLinkedList(); // UC8
         checkPalindromeUsingRecursion(); // UC9
         checkCaseInsensitivePalindrome(); // UC10
+        checkUsingOOPService(); // UC11
     }
 
     private static void displayWelcomeMessage() {
@@ -241,8 +263,6 @@ public class PalindromeCheckerApp {
     // ===== UC10: Case-insensitive & space ignored =====
     private static void checkCaseInsensitivePalindrome() {
         String input = "A man a plan a canal Panama";
-
-        // normalize: remove spaces & make lowercase
         String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
         int left = 0;
@@ -262,6 +282,20 @@ public class PalindromeCheckerApp {
             System.out.println(input + " is a Palindrome (Case-Insensitive Method)");
         } else {
             System.out.println(input + " is NOT a Palindrome (Case-Insensitive Method)");
+        }
+    }
+
+    // ===== UC11: OOP usage =====
+    private static void checkUsingOOPService() {
+        PalindromeChecker service = new PalindromeChecker();
+        String text = "rotor";
+
+        boolean result = service.checkPalindrome(text);
+
+        if (result) {
+            System.out.println(text + " is a Palindrome (OOP Service)");
+        } else {
+            System.out.println(text + " is NOT a Palindrome (OOP Service)");
         }
     }
 }
